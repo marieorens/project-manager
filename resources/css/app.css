@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  
+.tectonique-left-right {
+    animation: tectoniqueLeftRight 2s ease-in-out forwards;
+}
+
+.tectonique-bottom-top {
+    animation: tectoniqueBottomTop 1s ease-in-out forwards;
+}
+
+
+@keyframes tectoniqueLeftRight {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(0); }
+}
+
+
+@keyframes tectoniqueBottomTop {
+    0% { transform: translateY(100%); }
+    100% { transform: translateY(0); }
+}
+
+
+.typing {
+    overflow: hidden;
+    border-right: .15em solid #FF2D20;
+    white-space: nowrap;
+    margin: 0 auto;
+    width: 0;
+    animation: typing 3s steps(30) 1s forwards, blinkCaret 0.75s step-end infinite;
+}
+
+
+@keyframes typing {
+    100% {
+        width: 100%;
+    }
+}
+
+
+@keyframes blinkCaret {
+    50% {
+        border-color: transparent;
+    }
+}

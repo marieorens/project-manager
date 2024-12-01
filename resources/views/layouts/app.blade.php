@@ -1,36 +1,36 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'Laravel') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
-
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $pageTitle ?? 'Gestion de Tâches' }}</title>
+    <!-- Tailwind CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    @yield('styles')
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ route('dashboard') }}" class="text-xl font-bold">Gestion de Tâches</a>
+            <div>
+                @auth
+                    <a href="{{ route('projects.index') }}" class="mr-4">Projets</a>
+                    @if(auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.users') }}" class="mr-4">Gestion Utilisateurs</a>
+                    @endif
+                    <a href="{{ route('logout') }}" class="bg-red-500 px-3 py-1 rounded">Déconnexion</a>
+                @else
+                    <a href="{{ route('login') }}" class="mr-4">Connexion</a>
+                    <a href="{{ route('register') }}" class="bg-green-500 px-3 py-1 rounded">S'inscrire</a>
+                @endauth
+            </div>
         </div>
-    </body>
+    </nav>
+
+    <main class="container mx-auto mt-6 p-4">
+        @yield('content')
+    </main>
+
+    @yield('scripts')
+</body>
 </html>
